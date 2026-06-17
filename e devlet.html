@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Devlet Kapısı - Türkiye Cumhuriyeti</title>
+    <style>
+        /* ===== RESET & GENEL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Tahoma', Arial, sans-serif;
+            background: #0b0f1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        /* ===== ANA KART ===== */
+        .container {
+            width: 100%;
+            max-width: 420px;
+            background: #141a26;
+            border-radius: 24px;
+            padding: 35px 30px 40px;
+            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.8), 0 0 0 1px #2a3a5a inset;
+            transition: 0.3s;
+        }
+        /* ===== BAŞLIK ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header .logo {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 180, 216, 0.3);
+        }
+        .header .sub {
+            font-size: 13px;
+            color: #6a8ab0;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 300;
+        }
+        .header .shield {
+            font-size: 48px;
+            margin-bottom: 6px;
+            display: block;
+            filter: drop-shadow(0 0 12px #0077b6);
+        }
+        /* ===== GİRİŞ FORMU ===== */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #9bb5d9;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0f1621;
+            border: 1px solid #27374d;
+            border-radius: 12px;
+            color: #e8f0fe;
+            font-size: 15px;
+            transition: 0.25s;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #00b4d8;
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.25);
+            background: #121b2b;
+        }
+        .form-group input::placeholder {
+            color: #4a5f7a;
+            font-weight: 300;
+        }
+        /* ===== BUTON ===== */
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            margin-top: 8px;
+            background: linear-gradient(135deg, #0077b6, #00b4d8);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 4px 20px rgba(0, 119, 182, 0.35);
+            text-transform: uppercase;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 180, 216, 0.45);
+        }
+        .btn-login:active {
+            transform: scale(0.97);
+        }
+        /* ===== ALT BAĞLANTILAR ===== */
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 22px;
+            font-size: 13px;
+        }
+        .links a {
+            color: #6a8ab0;
+            text-decoration: none;
+            transition: 0.2s;
+            border-bottom: 1px solid transparent;
+        }
+        .links a:hover {
+            color: #00b4d8;
+            border-bottom-color: #00b4d8;
+        }
+        /* ===== GÜVENLİK BADGE ===== */
+        .security-badge {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #1f2b3d;
+            font-size: 12px;
+            color: #4a5f7a;
+        }
+        .security-badge span {
+            font-size: 16px;
+        }
+        .lock-icon {
+            font-size: 16px;
+        }
+        /* ===== HACKER TARZI TERMINAL EFEKTİ ===== */
+        .hacker-overlay {
+            margin-top: 25px;
+            padding: 14px 16px;
+            background: #0a0e14;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #00cc88;
+            border: 1px solid #1a2a3a;
+            box-shadow: inset 0 0 20px rgba(0, 200, 100, 0.05);
+            word-break: break-all;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            max-height: 120px;
+            overflow-y: auto;
+            letter-spacing: 0.5px;
+        }
+        .hacker-overlay .cursor-blink {
+            animation: blink 1.2s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .hacker-overlay .green {
+            color: #00ff88;
+        }
+        .hacker-overlay .dim {
+            color: #3a6a5a;
+        }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 460px) {
+            .container { padding: 28px 18px; }
+            .header .logo { font-size: 30px; }
+            .links { flex-wrap: wrap; gap: 8px; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <span class="shield">🛡️</span>
+            <div class="logo">e-Devlet</div>
+            <div class="sub">Türkiye Cumhuriyeti · Resmî Kapı</div>
+        </div>
+
+        <!-- ===== GİRİŞ FORM ===== -->
+        <form id="loginForm" onsubmit="return false;">
+            <div class="form-group">
+                <label>🔐 T.C. Kimlik Numarası</label>
+                <input type="text" id="tc" placeholder="11 haneli T.C. Kimlik No" maxlength="11" autofocus>
+            </div>
+            <div class="form-group">
+                <label>🔑 Şifre</label>
+                <input type="password" id="password" placeholder="e-Devlet şifreniz">
+            </div>
+            <button type="submit" class="btn-login" onclick="handleLogin()">Giriş Yap</button>
+        </form>
+
+        <!-- ===== ALT LİNKLER ===== -->
+        <div class="links">
+            <a href="#">🔹 Şifremi Unuttum</a>
+            <a href="#">🔹 Kayıt Ol</a>
+            <a href="#">🔹 Mobil İmza</a>
+        </div>
+
+        <!-- ===== GÜVENLİK BADGE ===== -->
+        <div class="security-badge">
+            <span>🔒</span> 256-bit SSL Güvenli Bağlantı
+            <span style="margin-left: 8px;">|</span>
+            <span>🇹🇷</span>
+        </div>
+
+        <!-- ===== HACKER TARZI TERMINAL ÇIKTISI ===== -->
+        <div class="hacker-overlay" id="hackerLog">
+<span class="dim">[ HACK MODE ACTIVE ]</span>
+<span class="green">></span> <span class="dim">TÜRKİYE · DİJİTAL KAPI · v3.2.1</span>
+<span class="green">></span> <span class="dim">BAĞLANTI KURULDU → 192.168.8.1:443</span>
+<span class="green">></span> <span class="dim">SİSTEM KONTROLÜ BAŞLATILDI...</span>
+<span class="green">></span> <span class="dim">GÜVENLİK KATMANI #4 AKTİF</span>
+<span class="green">>></span> <span class="dim">BEKLE, HAZIRLANIYOR...</span>
+<span class="green">>>></span> <span class="cursor-blink">_</span>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- ===== JAVASCRIPT / HACKER EFECT + FAKE LOG ===== -->
+    <!-- ========================================================== -->
+    <script>
+        // === FAKE TERMINAL GELİŞTİRME ===
+        const logEl = document.getElementById('hackerLog');
+
+        // Hacker tarzı mesaj havuzu (uzun ve havalı)
+        const hackLines = [
+            '[ SYS ] Çekirdek güvenlik modülü yükleniyor...',
+            '[ NET ] DNS sorgusu: e-devlet.gov.tr → 192.168.1.10',
+            '[ CRYPTO ] AES-256 anahtar değişimi tamamlandı.',
+            '[ SSL ] Sertifika doğrulandı (SHA-256: 9F:3A:... )',
+            '[ FIREWALL ] Kural #12 devre dışı bırakıldı (test modu).',
+            '[ ROOT ] Oturum açma denemesi: admin:*****',
+            '[ AUTH ] 2FA doğrulama bekleniyor...',
+            '[ DATABASE ] MongoDB bağlantısı aktif (replika set).',
+            '[ PROXY ] Tor ağ geçidi üzerinden yönlendiriliyor.',
+            '[ NODE ] Redis önbellek senkronize edildi.',
+            '[ KERNEL ] Linux 6.2.0-rc3 (x86_64) çalışıyor.',
+            '[ IDS ] Anormal trafik tespit edilmedi.',
+            '[ HONEYPOT ] Sahte servis başlatıldı (port 2222).',
+            '[ LOG ] /var/log/secure.gz → çözümleniyor...',
+            '[ CLOUD ] AWS S3 bucket: e-devlet-logs (read-only).',
+            '[ LOAD ] CPU %12, RAM 4.2/16 GB, DISK 43%',
+            '[ SERVICE ] httpd (Apache) yeniden başlatıldı.',
+            '[ CRON ] Günlük yedekleme başlatıldı (tar.gz).',
+            '[ GIT ] Son commit: 6a4f3b2 - 'güvenlik güncellemesi'',
+            '[ CONFIG ] /etc/nginx/conf.d/default.conf → OK',
+            '[ OK ] Tüm hizmetler çalışıyor.',
+            '[ WAIT ] Yeni komut bekleniyor...'
+        ];
+
+        let logIndex = 0;
+
+        function appendHackLine() {
+            // Mevcut metni al, sonundaki imleç satırını çıkar
+            let current = logEl.innerHTML;
+            // Son satırdaki imleci temizle
+            current = current.replace(/<span class="green">>>>?<\/span>.*$/, '');
+            // Yeni satır ekle
+            const newLine = hackLines[logIndex % hackLines.length];
+            logIndex++;
+            // Yeni satırı ekle (yeşil > ile başlayan)
+            const coloredLine = `<span class="green">></span> <span class="dim">${newLine}</span>`;
+            // Tekrar imleç satırını ekle
+            const cursorLine = `<span class="green">>>></span> <span class="cursor-blink">_</span>`;
+            logEl.innerHTML = current + '\n' + coloredLine + '\n' + cursorLine;
+            // Otomatik aşağı kaydır
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        // Her 2.3 saniyede bir yeni satır ekle (sonsuz döngü)
+        setInterval(appendHackLine, 2300);
+
+        // Giriş butonuna basılınca özel bir mesaj
+        function handleLogin() {
+            const tc = document.getElementById('tc').value;
+            const pwd = document.getElementById('password').value;
+
+            // Boş kontrol
+            if (!tc || tc.length < 11 || !pwd) {
+                // Hata mesajını terminale bas
+                const current = logEl.innerHTML.replace(/<span class="green">>>>?<\/span>.*$/, '');
+                const errorLine = `<span style="color:#ff4455;">> [ HATA ] EKSİK BİLGİ - Lütfen T.C. ve şifre girin.</span>`;
+                const cursorLine = `<span class="green">>>></span> <span class="cursor-blink">_</span>`;
+                logEl.innerHTML = current + '\n' + errorLine + '\n' + cursorLine;
+                logEl.scrollTop = logEl.scrollHeight;
+                return;
+            }
+
+            // Başarılı giriş simülasyonu - uzun hacker mesajı
+            const successLines = [
+                `> [ OK ] KULLANICI: ${tc.substring(0, 3)}*******${tc.substring(9, 11)}`,
+                `> [ AUTH ] PAROLA EŞLEŞTİ (bcrypt doğrulandı).`,
+                `> [ SESSION ] TOKEN: eyJhbGciOiJIUzI1NiIs... (JWT)`,
+                `> [ REDIS ] Kullanıcı oturumu oluşturuldu.`,
+                `> [ POLICY ] Giriş saati: ${new Date().toLocaleString()}`,
+                `> [ IP ] Kayıtlı cihaz: IP 192.168.1.42 (güvenilir).`,
+                `> [ OK ] e-Devlet sistemine HOŞ GELDİNİZ!`,
+                `> [ NOT ] Kullanıcı rolü: VATANDAŞ (yetki: 0x3F)`,
+                `> [ BANNER ] TÜRKİYE CUMHURİYETİ · DİJİTAL HİZMET`,
+                `> [ ] 2FA: SMS doğrulama kodu gönderildi (****)`,
+                `> [ ] Lütfen cep telefonunuzu kontrol edin.`
+            ];
+
+            const current = logEl.innerHTML.replace(/<span class="green">>>>?<\/span>.*$/, '');
+            let newContent = current;
+            successLines.forEach(line => {
+                newContent += '\n<span class="green">>></span> <span class="dim">' + line + '</span>';
+            });
+            const cursorLine = `<span class="green">>>>></span> <span class="cursor-blink">_</span>`;
+            logEl.innerHTML = newContent + '\n' + cursorLine;
+            logEl.scrollTop = logEl.scrollHeight;
+
+            // Butona tıklama efekti - butonu geçici olarak devre dışı bırak
+            const btn = document.querySelector('.btn-login');
+            btn.textContent = '🔓 Giriş Yapılıyor...';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.textContent = '✅ Giriş Başarılı';
+                btn.style.background = 'linear-gradient(135deg, #1a7a3a, #2ecc71)';
+                btn.disabled = false;
+                // 5 saniye sonra eski haline dönsün
+                setTimeout(() => {
+                    btn.textContent = 'Giriş Yap';
+                    btn.style.background = 'linear-gradient(135deg, #0077b6, #00b4d8)';
+                }, 5000);
+            }, 1500);
+        }
+
+        // Sayfa yüklendiğinde imleç efektini başlat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Zaten ilk satırlar yüklü, sadece ekstra bir satır ekleyelim
+            setTimeout(() => {
+                const current = logEl.innerHTML;
+                const newLine = `<span class="green">>>></span> <span class="dim">[ SYSTEM ] e-Devlet hazır. Bekleniyor...</span>`;
+                const cursorLine = `<span class="green">>>></span> <span class="cursor-blink">_</span>`;
+                logEl.innerHTML = current + '\n' + newLine + '\n' + cursorLine;
+                logEl.scrollTop = logEl.scrollHeight;
+            }, 500);
+        });
+
+        // Console'dan manuel komut gönderme (hacker havası)
+        console.log('%c🔥 e-Devlet HACK MODE 🔥', 'font-size:20px; font-weight:bold; color:#00ff88;');
+        console.log('%cBu sayfa eğitim amaçlıdır. Kamu kurumlarıyla ilişkisi yoktur.', 'color:#6a8ab0;');
+        console.log('%c> HACK THE PLANET <', 'font-size:14px; color:#00cc88;');
+
+        // Giriş formuna Enter tuşu desteği
+        document.getElementById('loginForm').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleLogin();
+            }
+        });
+
+        // TC alanına otomatik odak
+        document.getElementById('tc').focus();
+    </script>
+
+</body>
+</html>
